@@ -1,4 +1,4 @@
-import { ThemeProvider } from "@/components/theme-provider";
+import { ThemeProvider } from "@/components/themeProvider";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 
