@@ -1,5 +1,6 @@
 import { Plus } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 
 import Logo from "@/assets/logo.svg";
 import ThemeToggle from "@/components/common/ThemeToggle";
@@ -17,7 +18,9 @@ export default function Header() {
   return (
     <header className="sticky top-0 z-50">
       <div className="container flex h-14 items-center">
-        <Image src={Logo} alt="loggest" className="hidden sm:block" />
+        <Link href="/">
+          <Image src={Logo} alt="loggest" className="hidden sm:block" />
+        </Link>
         <div className="flex flex-1 items-center justify-end gap-2">
           <Search />
           <Button variant="ghost" size="icon" className="w-10">
