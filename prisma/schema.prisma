@@ -9,3 +9,57 @@ datasource db {
   provider = "sqlite"
   url      = env("DATABASE_URL")
 }
+
+model User {
+  id        Int            @id @default(autoincrement())
+  email     String         @unique
+  name      String
+  avatarUrl String
+  googleId  String?        @unique
+  githubId  String?        @unique
+  blogs     Blog[]
+  readBlogs UserReadBlog[]
+  BlogLike  BlogLike[]
+  Comment   Comment[]
+}
+
+model Blog {
+  id          Int            @id @default(autoincrement())
+  title       String
+  content     String
+  authorId    Int
+  author      User           @relation(fields: [authorId], references: [id])
+  readByUsers UserReadBlog[]
+  BlogLike    BlogLike[]
+  Comment     Comment[]
+}
+
+model UserReadBlog {
+  id     Int      @id @default(autoincrement())
+  readAt DateTime @default(now())
+  userId Int
+  blogId Int
+  user   User     @relation(fields: [userId], references: [id])
+  blog   Blog     @relation(fields: [blogId], references: [id])
+
+  @@unique([userId, blogId])
+}
+
+model BlogLike {
+  id     Int  @id @default(autoincrement())
+  userId Int
+  blogId Int
+  user   User @relation(fields: [userId], references: [id])
+  blog   Blog @relation(fields: [blogId], references: [id])
+
+  @@unique([userId, blogId])
+}
+
+model Comment {
+  id      Int    @id @default(autoincrement())
+  content String
+  blogId  Int
+  userId  Int
+  blog    Blog   @relation(fields: [blogId], references: [id])
+  user    User   @relation(fields: [userId], references: [id])
+}
