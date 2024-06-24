@@ -17,50 +17,50 @@ model User {
   avatarUrl String
   googleId  String?        @unique
   githubId  String?        @unique
-  blogs     Blog[]
-  readBlogs UserReadBlog[]
+  posts     Post[]
+  readPosts UserReadPost[]
   stars     Star[]
   comments  Comment[]
 }
 
-model Blog {
+model Post {
   id          Int            @id @default(autoincrement())
   createdAt   DateTime       @default(now())
   title       String
   content     String
   authorId    Int
   author      User           @relation(fields: [authorId], references: [id])
-  readByUsers UserReadBlog[]
+  readByUsers UserReadPost[]
   stars       Star[]
   comments    Comment[]
 }
 
-model UserReadBlog {
+model UserReadPost {
   id     Int      @id @default(autoincrement())
   readAt DateTime @default(now())
   userId Int
-  blogId Int
+  postId Int
   user   User     @relation(fields: [userId], references: [id])
-  blog   Blog     @relation(fields: [blogId], references: [id])
+  post   Post     @relation(fields: [postId], references: [id])
 
-  @@unique([userId, blogId])
+  @@unique([userId, postId])
 }
 
 model Star {
   id     Int  @id @default(autoincrement())
   userId Int
-  blogId Int
+  postId Int
   user   User @relation(fields: [userId], references: [id])
-  blog   Blog @relation(fields: [blogId], references: [id])
+  post   Post @relation(fields: [postId], references: [id])
 
-  @@unique([userId, blogId])
+  @@unique([userId, postId])
 }
 
 model Comment {
   id      Int    @id @default(autoincrement())
   content String
-  blogId  Int
+  postId  Int
   userId  Int
-  blog    Blog   @relation(fields: [blogId], references: [id])
+  post    Post   @relation(fields: [postId], references: [id])
   user    User   @relation(fields: [userId], references: [id])
 }
