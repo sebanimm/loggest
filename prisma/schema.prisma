@@ -11,56 +11,110 @@ datasource db {
 }
 
 model User {
-  id        Int            @id @default(autoincrement())
-  email     String         @unique
-  name      String
-  avatarUrl String
-  googleId  String?        @unique
-  githubId  String?        @unique
-  posts     Post[]
-  readPosts UserReadPost[]
-  stars     Star[]
-  comments  Comment[]
+  id            String    @id @default(cuid())
+  name          String?
+  email         String?   @unique
+  emailVerified DateTime?
+  image         String?
+  accounts      Account[]
+  sessions      Session[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
-model Post {
-  id          Int            @id @default(autoincrement())
-  createdAt   DateTime       @default(now())
-  title       String
-  content     String
-  authorId    Int
-  author      User           @relation(fields: [authorId], references: [id])
-  readByUsers UserReadPost[]
-  stars       Star[]
-  comments    Comment[]
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String?
+  access_token      String?
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?
+  session_state     String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
 }
 
-model UserReadPost {
-  id     Int      @id @default(autoincrement())
-  readAt DateTime @default(now())
-  userId Int
-  postId Int
-  user   User     @relation(fields: [userId], references: [id])
-  post   Post     @relation(fields: [postId], references: [id])
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-  @@unique([userId, postId])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
-model Star {
-  id     Int  @id @default(autoincrement())
-  userId Int
-  postId Int
-  user   User @relation(fields: [userId], references: [id])
-  post   Post @relation(fields: [postId], references: [id])
+model VerificationToken {
+  identifier String
+  token      String
+  expires    DateTime
 
-  @@unique([userId, postId])
+  @@unique([identifier, token])
 }
 
-model Comment {
-  id      Int    @id @default(autoincrement())
-  content String
-  postId  Int
-  userId  Int
-  post    Post   @relation(fields: [postId], references: [id])
-  user    User   @relation(fields: [userId], references: [id])
-}
+// model User {
+//   id        Int            @id @default(autoincrement())
+//   email     String         @unique
+//   name      String
+//   avatarUrl String
+//   googleId  String?        @unique
+//   githubId  String?        @unique
+//   posts     Post[]
+//   readPosts UserReadPost[]
+//   stars     Star[]
+//   comments  Comment[]
+// }
+
+// model Post {
+//   id          Int            @id @default(autoincrement())
+//   createdAt   DateTime       @default(now())
+//   title       String
+//   content     String
+//   authorId    Int
+//   author      User           @relation(fields: [authorId], references: [id])
+//   readByUsers UserReadPost[]
+//   stars       Star[]
+//   comments    Comment[]
+// }
+
+// model UserReadPost {
+//   id     Int      @id @default(autoincrement())
+//   readAt DateTime @default(now())
+//   userId Int
+//   postId Int
+//   user   User     @relation(fields: [userId], references: [id])
+//   post   Post     @relation(fields: [postId], references: [id])
+
+//   @@unique([userId, postId])
+// }
+
+// model Star {
+//   id     Int  @id @default(autoincrement())
+//   userId Int
+//   postId Int
+//   user   User @relation(fields: [userId], references: [id])
+//   post   Post @relation(fields: [postId], references: [id])
+
+//   @@unique([userId, postId])
+// }
+
+// model Comment {
+//   id      Int    @id @default(autoincrement())
+//   content String
+//   postId  Int
+//   userId  Int
+//   post    Post   @relation(fields: [postId], references: [id])
+//   user    User   @relation(fields: [userId], references: [id])
+// }
