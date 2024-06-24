@@ -19,8 +19,8 @@ model User {
   githubId  String?        @unique
   blogs     Blog[]
   readBlogs UserReadBlog[]
-  BlogLike  BlogLike[]
-  Comment   Comment[]
+  stars     Star[]
+  comments  Comment[]
 }
 
 model Blog {
@@ -30,8 +30,8 @@ model Blog {
   authorId    Int
   author      User           @relation(fields: [authorId], references: [id])
   readByUsers UserReadBlog[]
-  BlogLike    BlogLike[]
-  Comment     Comment[]
+  stars       Star[]
+  comments    Comment[]
 }
 
 model UserReadBlog {
@@ -45,7 +45,7 @@ model UserReadBlog {
   @@unique([userId, blogId])
 }
 
-model BlogLike {
+model Star {
   id     Int  @id @default(autoincrement())
   userId Int
   blogId Int
