@@ -1,7 +1,14 @@
 import { z } from "zod";
 
 const ENV_SCHEMA = z.object({
-  DATABASE_URL: z.string().url().min(1),
+  POSTGRES_URL: z.string().url().min(1),
+  POSTGRES_PRISMA_URL: z.string().url().min(1),
+  POSTGRES_URL_NO_SSL: z.string().url().min(1),
+  POSTGRES_URL_NON_POOLING: z.string().url().min(1),
+  POSTGRES_USER: z.string().min(1),
+  POSTGRES_HOST: z.string().min(1),
+  POSTGRES_PASSWORD: z.string().min(1),
+  POSTGRES_DATABASE: z.string().min(1),
   AUTH_SECRET: z.string().min(1),
   AUTH_GITHUB_ID: z.string().min(1),
   AUTH_GITHUB_SECRET: z.string().min(1),
