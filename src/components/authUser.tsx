@@ -1,8 +1,5 @@
-"use client";
-
-import { signIn, signOut, useSession } from "next-auth/react";
-
 import avatarPlaceholder from "@/assets/user.svg";
+import { auth, signIn, signOut } from "@/auth";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import {
@@ -12,33 +9,51 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
-export default function AuthUser() {
-  const session = useSession();
-  const user = session.data?.user;
+export default async function AuthUser() {
+  const session = await auth();
 
-  return (
-    <>
-      {!user && session.status !== "loading" && (
-        <Button variant="ghost" onClick={() => signIn()}>
+  if (!session?.user) {
+    return (
+      <form
+        action={async () => {
+          "use server";
+          await signIn();
+        }}
+      >
+        <Button type="submit" variant="ghost">
           로그인
         </Button>
-      )}
-      {user && (
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Avatar style={{ cursor: "pointer" }}>
-              <AvatarImage src={user.image || avatarPlaceholder} alt="프로필" />
-              <AvatarFallback>프로필</AvatarFallback>
-            </Avatar>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
-            <DropdownMenuItem>내 블로그</DropdownMenuItem>
-            <DropdownMenuItem onClick={() => signOut()}>
+      </form>
+    );
+  }
+
+  return (
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
+        <Avatar className="cursor-pointer">
+          <AvatarImage
+            src={session.user.image || avatarPlaceholder}
+            alt="프로필"
+          />
+          <AvatarFallback>프로필</AvatarFallback>
+        </Avatar>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent align="end">
+        <DropdownMenuItem>내 블로그</DropdownMenuItem>
+        <form
+          className="w-full"
+          action={async () => {
+            "use server";
+            await signOut();
+          }}
+        >
+          <DropdownMenuItem asChild>
+            <button type="submit" className="w-full text-start">
               로그아웃
-            </DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
-      )}
-    </>
+            </button>
+          </DropdownMenuItem>
+        </form>
+      </DropdownMenuContent>
+    </DropdownMenu>
   );
 }
