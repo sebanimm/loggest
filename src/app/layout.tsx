@@ -1,6 +1,7 @@
 import "./globals.css";
 
 import type { Metadata } from "next";
+import { SessionProvider } from "next-auth/react";
 
 import pretendard from "@/assets/font";
 import Header from "@/components/common/Header";
@@ -20,10 +21,12 @@ export default function RootLayout({
     <html lang="ko">
       <body className={pretendard.className}>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-          <div className="relative flex min-h-screen flex-col bg-background">
-            <Header />
-            <main className="flex-1">{children}</main>
-          </div>
+          <SessionProvider>
+            <div className="relative flex min-h-screen flex-col bg-background">
+              <Header />
+              <main className="flex-1">{children}</main>
+            </div>
+          </SessionProvider>
         </ThemeProvider>
       </body>
     </html>
