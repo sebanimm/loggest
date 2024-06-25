@@ -3,9 +3,9 @@ import Link from "next/link";
 
 import Logo from "@/assets/logo.svg";
 import AuthUser from "@/components/authUser";
-import ThemeToggle from "@/components/common/ThemeToggle";
 import GeneratePostButton from "@/components/generatePostButton";
 import Search from "@/components/search";
+import ThemeToggle from "@/components/themeToggle";
 
 export default function Header() {
   return (
