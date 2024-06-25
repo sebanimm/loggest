@@ -3,16 +3,10 @@ import Image from "next/image";
 import Link from "next/link";
 
 import Logo from "@/assets/logo.svg";
+import AuthUser from "@/components/authUser";
 import ThemeToggle from "@/components/common/ThemeToggle";
 import Search from "@/components/search";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
 
 export default function Header() {
   return (
@@ -27,21 +21,7 @@ export default function Header() {
             <Plus />
           </Button>
           <ThemeToggle />
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Avatar style={{ cursor: "pointer" }}>
-                <AvatarImage
-                  src="https://avatars.githubusercontent.com/u/102154824?v=4"
-                  alt="프로필"
-                />
-                <AvatarFallback>프로필</AvatarFallback>
-              </Avatar>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end">
-              <DropdownMenuItem>내 블로그</DropdownMenuItem>
-              <DropdownMenuItem>로그아웃</DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
+          <AuthUser />
         </div>
       </div>
     </header>
