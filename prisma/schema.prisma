@@ -73,6 +73,7 @@ model Post {
   createdAt   DateTime       @default(now()) @db.Timestamptz(3)
   title       String
   content     String
+  description String
   authorId    String
   author      User           @relation(fields: [authorId], references: [id], onDelete: Cascade)
   readByUsers UserReadPost[]
