@@ -1,4 +1,3 @@
-import { MessageSquareIcon, StarIcon } from "lucide-react";
 import Image from "next/image";
 
 import { AspectRatio } from "@/components/ui/aspect-ratio";
@@ -15,18 +14,9 @@ interface PostProps {
   createdAt: string;
   title: string;
   content: string;
-  stars: number;
-  comments: number;
 }
 
-export default function Post({
-  id,
-  createdAt,
-  title,
-  content,
-  stars,
-  comments,
-}: PostProps) {
+export default function Post({ id, createdAt, title, content }: PostProps) {
   return (
     <Card key={id}>
       <AspectRatio ratio={16 / 9}>
@@ -44,13 +34,9 @@ export default function Post({
         </CardDescription>
       </CardHeader>
       <CardContent>
-        by 권세원
         <CardDescription className="flex justify-between">
-          <span className="flex items-center gap-1">
-            <MessageSquareIcon className="w-4" /> {comments}
-            <StarIcon className="ml-1 w-4" /> {stars}
-          </span>
-          <span className="flex items-center gap-1">
+          by 권세원
+          <span>
             {createdAt} • {Math.round(content.length / 300)} min read
           </span>
         </CardDescription>
