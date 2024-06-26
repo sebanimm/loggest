@@ -6,6 +6,7 @@ import { SessionProvider } from "next-auth/react";
 import pretendard from "@/assets/font";
 import Header from "@/components/common/Header";
 import { ThemeProvider } from "@/components/themeProvider";
+import { TooltipProvider } from "@/components/ui/tooltip";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -21,12 +22,14 @@ export default function RootLayout({
     <html lang="ko">
       <body className={pretendard.className}>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-          <SessionProvider>
-            <div className="relative flex min-h-screen flex-col bg-background">
-              <Header />
-              <main className="flex-1">{children}</main>
-            </div>
-          </SessionProvider>
+          <TooltipProvider>
+            <SessionProvider>
+              <div className="relative flex min-h-screen flex-col bg-background">
+                <Header />
+                <main className="flex-1">{children}</main>
+              </div>
+            </SessionProvider>
+          </TooltipProvider>
         </ThemeProvider>
       </body>
     </html>

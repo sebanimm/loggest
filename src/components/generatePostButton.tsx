@@ -15,18 +15,16 @@ export default async function GeneratePostButton() {
   return (
     <>
       {session?.user && (
-        <TooltipProvider>
-          <Tooltip>
-            <TooltipTrigger asChild>
-              <Button variant="ghost" size="icon" className="w-10">
-                <Plus />
-              </Button>
-            </TooltipTrigger>
-            <TooltipContent side="bottom">
-              <p>새 글 작성하기</p>
-            </TooltipContent>
-          </Tooltip>
-        </TooltipProvider>
+        <Tooltip>
+          <TooltipTrigger asChild>
+            <Button variant="ghost" size="icon" className="w-10">
+              <Plus />
+            </Button>
+          </TooltipTrigger>
+          <TooltipContent side="bottom">
+            <p>새 글 작성하기</p>
+          </TooltipContent>
+        </Tooltip>
       )}
     </>
   );
