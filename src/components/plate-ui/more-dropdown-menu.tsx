@@ -3,7 +3,7 @@ import React from 'react';
 import type { DropdownMenuProps } from '@radix-ui/react-dropdown-menu';
 
 import { MARK_SUBSCRIPT, MARK_SUPERSCRIPT } from '@udecode/plate-basic-marks';
-import { focusEditor, toggleMark, useEditorRef } from '@udecode/plate-common';
+import { collapseSelection, focusEditor, toggleMark, useEditorRef } from '@udecode/plate-common';
 
 import { Icons } from '@/components/icons';
 
@@ -15,6 +15,8 @@ import {
   useOpenState,
 } from './dropdown-menu';
 import { ToolbarButton } from './toolbar';
+import { MARK_HIGHLIGHT } from '@udecode/plate-highlight';
+import { MARK_KBD } from '@udecode/plate-kbd';
 
 export function MoreDropdownMenu(props: DropdownMenuProps) {
   const editor = useEditorRef();
@@ -32,6 +34,31 @@ export function MoreDropdownMenu(props: DropdownMenuProps) {
         align="start"
         className="flex max-h-[500px] min-w-[180px] flex-col gap-0.5 overflow-y-auto"
       >
+                <DropdownMenuItem
+          onSelect={() => {
+            toggleMark(editor, {
+              key: MARK_HIGHLIGHT,
+            });
+            collapseSelection(editor, { edge: 'end' });
+            focusEditor(editor);
+          }}
+        >
+          <Icons.highlight className="mr-2 size-5" />
+          Highlight
+        </DropdownMenuItem>
+
+        <DropdownMenuItem
+          onSelect={() => {
+            toggleMark(editor, {
+              key: MARK_KBD,
+            });
+            collapseSelection(editor, { edge: 'end' });
+            focusEditor(editor);
+          }}
+        >
+          <Icons.kbd className="mr-2 size-5" />
+          Keyboard input
+        </DropdownMenuItem>
         <DropdownMenuItem
           onSelect={() => {
             toggleMark(editor, {

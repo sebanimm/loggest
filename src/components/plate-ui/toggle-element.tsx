@@ -14,7 +14,7 @@ export const ToggleElement = withRef<typeof PlateElement>(
       <PlateElement asChild ref={ref} {...props}>
         <div className="relative pl-6">
           <span
-            className="absolute -left-0.5 -top-0.5 flex cursor-pointer select-none items-center justify-center rounded-sm p-px transition-colors hover:bg-slate-200"
+            className="absolute -left-0.5 -top-0.5 flex cursor-pointer select-none items-center justify-center rounded-sm p-px transition-colors hover:bg-accent"
             contentEditable={false}
             {...buttonProps}
           >
