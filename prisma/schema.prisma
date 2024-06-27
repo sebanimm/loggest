@@ -71,6 +71,7 @@ model VerificationToken {
 model Post {
   id          Int            @id @default(autoincrement())
   createdAt   DateTime       @default(now()) @db.Timestamptz(3)
+  image       String?
   title       String
   content     String
   description String
