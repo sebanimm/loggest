@@ -15,8 +15,13 @@ const ENV_SCHEMA = z.object({
   AUTH_GOOGLE_ID: z.string().min(1),
   AUTH_GOOGLE_SECRET: z.string().min(1),
   SERVER_BASE_URL: z.string().url().min(1),
+  DEFAULT_IMG: z.string().url().min(1),
 });
 
-const env = ENV_SCHEMA.parse(process.env);
+ENV_SCHEMA.parse(process.env);
 
-export default env;
+declare global {
+  namespace NodeJS {
+    interface ProcessEnv extends z.infer<typeof ENV_SCHEMA> {}
+  }
+}

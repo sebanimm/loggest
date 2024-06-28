@@ -12,10 +12,10 @@ export async function GET() {
 
 export async function POST(request: Request) {
   try {
-    const { image, title, content, userId } = await request.json();
+    const { image, title, content, description, email } = await request.json();
 
     const author = await prisma.user.findUnique({
-      where: { id: userId },
+      where: { email },
     });
 
     if (!author) throw new Error("존재하지 않는 유저");
@@ -25,7 +25,7 @@ export async function POST(request: Request) {
         image,
         title,
         content,
-        description: content,
+        description,
         authorId: author.id,
       },
     });

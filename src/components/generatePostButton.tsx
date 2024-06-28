@@ -1,11 +1,11 @@
 import { Plus } from "lucide-react";
+import Link from "next/link";
 
 import { auth } from "@/auth";
 import { Button } from "@/components/ui/button";
 import {
   Tooltip,
   TooltipContent,
-  TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 
@@ -17,8 +17,10 @@ export default async function GeneratePostButton() {
       {session?.user && (
         <Tooltip>
           <TooltipTrigger asChild>
-            <Button variant="ghost" size="icon" className="w-10">
-              <Plus />
+            <Button variant="ghost" size="icon" className="w-10" asChild>
+              <Link href="/create">
+                <Plus />
+              </Link>
             </Button>
           </TooltipTrigger>
           <TooltipContent side="bottom">
