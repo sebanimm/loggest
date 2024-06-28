@@ -1,6 +1,9 @@
+import { AvatarFallback, AvatarImage } from "@radix-ui/react-avatar";
 import Image from "next/image";
 
+import instance from "@/apis/instance";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
+import { Avatar } from "@/components/ui/avatar";
 import {
   Card,
   CardContent,
@@ -8,15 +11,25 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { YYYYMMDD } from "@/lib/dayjs";
 
 interface PostProps {
   id: number;
   createdAt: string;
   title: string;
-  content: string;
+  description: string;
+  authorId: string;
 }
 
-export default function Post({ id, createdAt, title, content }: PostProps) {
+export default async function Post({
+  id,
+  createdAt,
+  title,
+  description,
+  authorId,
+}: PostProps) {
+  const user = await instance.get(`/user/${authorId}`);
+
   return (
     <Card key={id}>
       <AspectRatio ratio={16 / 9}>
@@ -30,14 +43,21 @@ export default function Post({ id, createdAt, title, content }: PostProps) {
       <CardHeader>
         <CardTitle className="line-clamp-1 text-ellipsis">{title}</CardTitle>
         <CardDescription className="line-clamp-3 text-ellipsis">
-          {content}
+          {description}
         </CardDescription>
       </CardHeader>
       <CardContent>
         <CardDescription className="flex justify-between">
-          by 권세원
+          <span className="flex gap-2">
+            <Avatar className="h-5 w-5">
+              <AvatarImage width={20} height={20} src={user.data.image} />
+              <AvatarFallback>프로필</AvatarFallback>
+            </Avatar>
+            {user.data.name}
+          </span>
           <span>
-            {createdAt} • {Math.round(content.length / 300)} min read
+            {YYYYMMDD(createdAt)} • {Math.ceil(description.length / 300)} min
+            read
           </span>
         </CardDescription>
       </CardContent>
