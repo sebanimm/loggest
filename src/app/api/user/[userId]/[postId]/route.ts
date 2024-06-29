@@ -4,18 +4,20 @@ import prisma from "@/lib/prisma";
 
 interface Params {
   params: {
-    id: string;
+    userId: string;
+    postId: string;
   };
 }
 
-export async function GET(request: Request, { params }: Params) {
+export async function GET(
+  request: Request,
+  { params: { userId, postId } }: Params,
+) {
   try {
-    const idParam = params.id;
-
-    const id = parseInt(idParam);
+    const id = parseInt(postId);
 
     const post = await prisma.post.findUnique({
-      where: { id },
+      where: { id, authorId: userId },
     });
 
     return Response.json(post);
@@ -25,17 +27,18 @@ export async function GET(request: Request, { params }: Params) {
   }
 }
 
-export async function PUT(request: NextRequest, { params }: Params) {
+export async function PUT(
+  request: NextRequest,
+  { params: { userId, postId } }: Params,
+) {
   try {
     const { image, title, content } = await request.json();
 
-    const idParam = params.id;
-
-    const id = parseInt(idParam);
+    const id = parseInt(postId);
 
     await prisma.post.update({
       data: { image, title, content, description: content },
-      where: { id },
+      where: { id, authorId: userId },
     });
 
     return Response.json({ message: "성공적으로 업데이트되었습니다." });
@@ -45,14 +48,15 @@ export async function PUT(request: NextRequest, { params }: Params) {
   }
 }
 
-export async function DELETE(request: NextRequest, { params }: Params) {
+export async function DELETE(
+  request: NextRequest,
+  { params: { userId, postId } }: Params,
+) {
   try {
-    const idParam = params.id;
-
-    const id = parseInt(idParam);
+    const id = parseInt(postId);
 
     await prisma.post.delete({
-      where: { id },
+      where: { id, authorId: userId },
     });
 
     return Response.json({ message: "성공적으로 삭제되었습니다." });
