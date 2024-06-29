@@ -59,7 +59,7 @@ export function ModeDropdownMenu(props: DropdownMenuProps) {
         </ToolbarButton>
       </DropdownMenuTrigger>
 
-      <DropdownMenuContent align="start" className="min-w-[180px]">
+      <DropdownMenuContent align="start" className="min-w-[68px] lg:min-w-[180px]">
         <DropdownMenuRadioGroup
           className="flex flex-col gap-0.5"
           onValueChange={(newValue) => {
@@ -79,11 +79,11 @@ export function ModeDropdownMenu(props: DropdownMenuProps) {
           }}
           value={value}
         >
-          <DropdownMenuRadioItem value="editing">
+          <DropdownMenuRadioItem value="editing" className='pr-0'>
             {item.editing}
           </DropdownMenuRadioItem>
 
-          <DropdownMenuRadioItem value="viewing">
+          <DropdownMenuRadioItem value="viewing" className='pr-0'>
             {item.viewing}
           </DropdownMenuRadioItem>
         </DropdownMenuRadioGroup>

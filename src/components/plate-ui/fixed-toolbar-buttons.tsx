@@ -92,9 +92,6 @@ export function FixedToolbarButtons() {
               <IndentListToolbarButton nodeType={ListStyleType.Disc} />
               <IndentListToolbarButton nodeType={ListStyleType.Decimal} />
               <IndentTodoToolbarButton />
-
-              <OutdentToolbarButton />
-              <IndentToolbarButton />
             </ToolbarGroup>
 
             <ToolbarGroup>
