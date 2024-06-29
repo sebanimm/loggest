@@ -8,9 +8,8 @@ interface Params {
 
 export async function GET(request: Request, { params }: Params) {
   try {
-    const posts = await prisma.user.findUnique({
-      where: { id: params.id },
-      select: { posts: true },
+    const posts = await prisma.post.findMany({
+      where: { authorId: params.id },
     });
 
     return Response.json(posts);
