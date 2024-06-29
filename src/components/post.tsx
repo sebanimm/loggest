@@ -12,6 +12,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { YYYYMMDD } from "@/lib/dayjs";
+import { minRead } from "@/lib/minRead";
 
 interface PostProps {
   id: number;
@@ -56,8 +57,7 @@ export default async function Post({
             {user.data.name}
           </span>
           <span>
-            {YYYYMMDD(createdAt)} • {Math.ceil(description.length / 300)} min
-            read
+            {YYYYMMDD(createdAt)} • {minRead(description)}
           </span>
         </CardDescription>
       </CardContent>
