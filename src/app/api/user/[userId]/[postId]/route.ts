@@ -1,3 +1,4 @@
+import { notFound } from "next/navigation";
 import { NextRequest } from "next/server";
 
 import prisma from "@/lib/prisma";
@@ -19,6 +20,10 @@ export async function GET(
     const post = await prisma.post.findUnique({
       where: { id, authorId: userId },
     });
+
+    if (!post) {
+      notFound();
+    }
 
     return Response.json(post);
   } catch (err) {
