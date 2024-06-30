@@ -1,13 +1,11 @@
 import "../globals.css";
 
 import type { Metadata } from "next";
-import { SessionProvider } from "next-auth/react";
 
 import pretendard from "@/assets/font";
 import Header from "@/components/common/Header";
-import { ThemeProvider } from "@/components/themeProvider";
 import { Toaster } from "@/components/ui/sonner";
-import { TooltipProvider } from "@/components/ui/tooltip";
+import { Providers } from "@/providers";
 
 export const metadata: Metadata = {
   title: "Loggest",
@@ -22,17 +20,13 @@ export default function RootLayout({
   return (
     <html lang="ko">
       <body className={pretendard.className}>
-        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-          <TooltipProvider>
-            <SessionProvider>
-              <div className="relative flex min-h-screen flex-col bg-background">
-                <Header />
-                <main className="flex-1">{children}</main>
-                <Toaster position="top-right" richColors />
-              </div>
-            </SessionProvider>
-          </TooltipProvider>
-        </ThemeProvider>
+        <Providers>
+          <div className="relative flex min-h-screen flex-col bg-background">
+            <Header />
+            <main className="flex-1">{children}</main>
+            <Toaster position="top-right" richColors />
+          </div>
+        </Providers>
       </body>
     </html>
   );
