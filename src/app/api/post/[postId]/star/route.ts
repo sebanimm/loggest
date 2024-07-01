@@ -2,17 +2,16 @@ import prisma from "@/lib/prisma";
 
 interface Params {
   params: {
-    userId: string;
     postId: string;
   };
 }
 
-export async function POST(
-  request: Request,
-  { params: { userId, postId } }: Params,
-) {
+export async function POST(request: Request, { params: { postId } }: Params) {
   try {
+    const { userId } = await request.json();
+
     await prisma.star.create({ data: { userId, postId: parseInt(postId) } });
+
     return Response.json({ status: 201 });
   } catch (err) {
     console.log(err);
@@ -20,14 +19,14 @@ export async function POST(
   }
 }
 
-export async function DELETE(
-  request: Request,
-  { params: { userId, postId } }: Params,
-) {
+export async function DELETE(request: Request, { params: { postId } }: Params) {
   try {
+    const { userId } = await request.json();
+
     await prisma.star.delete({
       where: { userId_postId: { userId, postId: parseInt(postId) } },
     });
+
     return Response.json({ status: 201 });
   } catch (err) {
     console.log(err);

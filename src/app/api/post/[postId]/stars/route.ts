@@ -11,6 +11,7 @@ export async function GET(request: Request, { params: { postId } }: Params) {
     const stars = await prisma.star.findMany({
       where: { postId: parseInt(postId) },
     });
+
     return Response.json(stars);
   } catch (err) {
     console.log(err);

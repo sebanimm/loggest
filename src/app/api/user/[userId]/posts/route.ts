@@ -15,6 +15,6 @@ export async function GET(request: Request, { params }: Params) {
     return Response.json(posts);
   } catch (err) {
     console.log(err);
-    return Response.json({ message: "에러발생" });
+    return Response.json({ message: "오류가 발생했습니다." }, { status: 500 });
   }
 }
