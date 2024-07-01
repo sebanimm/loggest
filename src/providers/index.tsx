@@ -6,7 +6,7 @@ import { MultiProvider } from "@/providers/multiProvider";
 import { QueryClientProvider } from "@/providers/queryClientProvider";
 import { ThemeProvider } from "@/providers/themeProvider";
 
-const provider = [
+const providers = [
   TooltipProvider,
   ThemeProvider,
   SessionProvider,
@@ -15,5 +15,5 @@ const provider = [
 ];
 
 export function Providers({ children }: { children: React.ReactNode }) {
-  return <MultiProvider providers={provider}>{children}</MultiProvider>;
+  return <MultiProvider providers={providers}>{children}</MultiProvider>;
 }
