@@ -39,3 +39,14 @@ export interface Comment {
   userId: string;
   postId: number;
 }
+
+export interface CreatePostData {
+  image: string;
+  title: string;
+  content: string;
+  description: string;
+  email: string;
+}
+
+export interface UpdatePostData
+  extends Partial<Omit<CreatePostData, "email">> {}

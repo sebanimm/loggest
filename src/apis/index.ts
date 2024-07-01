@@ -1,5 +1,12 @@
 import instance from "@/apis/instance";
-import type { APIResponse, Post, Star, User } from "@/types/schema";
+import type {
+  APIResponse,
+  CreatePostData,
+  Post,
+  Star,
+  UpdatePostData,
+  User,
+} from "@/types/schema";
 
 export async function getAllUserIds() {
   const response = await instance.get<User["id"][]>("/user");
@@ -26,12 +33,15 @@ export async function getPost(postId: string | number) {
   return response.data;
 }
 
-export async function createPost(data: any) {
+export async function createPost(data: CreatePostData) {
   const response = await instance.post<APIResponse>("/post", { data });
   return response.data;
 }
 
-export async function updatePost(postId: string | number, data: any) {
+export async function updatePost(
+  postId: string | number,
+  data: UpdatePostData,
+) {
   const response = await instance.put<Post>(`/post/${postId}`, { data });
   return response.data;
 }
