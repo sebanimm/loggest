@@ -43,9 +43,9 @@ const defaultValue = [
   },
 ];
 
-export default function CreatePage() {
+export default function WritePage() {
   const router = useRouter();
-  const { data: session } = useSession();
+  const { data: session, status } = useSession();
   const [initialValue, setInitialValue] = React.useState(defaultValue);
   const [title, setTitle] = React.useState("");
 
@@ -71,18 +71,18 @@ export default function CreatePage() {
     }
   }, [form]);
 
-  if (!session || !session.user) {
+  if (status !== "loading" && (!session || !session.user)) {
     return router.replace("/api/auth/signin");
   }
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
       await createPost({
-        image: process.env.DEFAULT_IMG,
+        image: process.env.NEXT_PUBLIC_DEFAULT_IMG,
         title: values.title,
         content: values.content,
         description: serialize(JSON.parse(values.content)),
-        email: session.user?.email as string,
+        email: session?.user?.email as string,
       });
       toast.success("게시물이 성공적으로 작성되었습니다.");
       router.push("/");
@@ -134,7 +134,7 @@ export default function CreatePage() {
                     <DndProvider backend={HTML5Backend}>
                       <Plate
                         key={JSON.stringify(initialValue)}
-                        onChange={(value) => {
+                        onChange={(value: any) => {
                           const content = JSON.stringify(value);
                           localStorage.setItem("content", content);
                           form.setValue("content", content);
