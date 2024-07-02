@@ -1,10 +1,12 @@
 "use client";
 
-import { Plate } from "@udecode/plate-common";
+import { Plate, type TElement } from "@udecode/plate-common";
+import { useAtomValue } from "jotai";
 import React from "react";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 
+import { editAtom } from "@/atoms";
 import { Editor } from "@/components/plate-ui/editor";
 import { FixedToolbar } from "@/components/plate-ui/fixed-toolbar";
 import { FixedToolbarButtons } from "@/components/plate-ui/fixed-toolbar-buttons";
@@ -12,44 +14,29 @@ import { FloatingToolbar } from "@/components/plate-ui/floating-toolbar";
 import { FloatingToolbarButtons } from "@/components/plate-ui/floating-toolbar-buttons";
 import { plugins } from "@/lib/plugins";
 
-const defaultValue = [
-  {
-    id: "1",
-    type: "p",
-    children: [{ text: "Hello, World!" }],
-  },
-];
+interface PlateEditorProps {
+  value?: TElement[];
+}
 
-export function PlateEditor() {
-  const [initialValue, setInitialValue] = React.useState(defaultValue);
-
-  React.useEffect(() => {
-    const savedContent = localStorage.getItem("content");
-    if (savedContent) {
-      setInitialValue(JSON.parse(savedContent));
-    }
-  }, []);
+export function PlateEditor({ value }: PlateEditorProps) {
+  const isEditing = useAtomValue(editAtom);
 
   return (
     <DndProvider backend={HTML5Backend}>
-      <Plate
-        key={JSON.stringify(initialValue)}
-        onChange={(value) => {
-          const content = JSON.stringify(value);
-          localStorage.setItem("content", content);
-        }}
-        plugins={plugins}
-        initialValue={initialValue}
-      >
-        <FixedToolbar>
-          <FixedToolbarButtons />
-        </FixedToolbar>
+      <Plate readOnly={!isEditing} value={value} plugins={plugins}>
+        {isEditing && (
+          <FixedToolbar>
+            <FixedToolbarButtons />
+          </FixedToolbar>
+        )}
 
-        <Editor className="min-h-[70vh] border-none px-6" focusRing={false} />
+        <Editor className="border-none px-6" focusRing={false} />
 
-        <FloatingToolbar>
-          <FloatingToolbarButtons />
-        </FloatingToolbar>
+        {isEditing && (
+          <FloatingToolbar>
+            <FloatingToolbarButtons />
+          </FloatingToolbar>
+        )}
       </Plate>
     </DndProvider>
   );
