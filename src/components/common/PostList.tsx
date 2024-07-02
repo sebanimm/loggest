@@ -1,12 +1,12 @@
-import instance from "@/apis/instance";
+import { getAllPosts } from "@/apis";
 import Post from "@/components/post";
 
 export default async function PostList() {
-  const posts = await instance.get("/post");
+  const posts = await getAllPosts();
 
   return (
     <>
-      {posts.data.map((item: any) => (
+      {posts.map((item: any) => (
         <Post key={item.id} {...item} />
       ))}
     </>
