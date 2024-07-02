@@ -14,7 +14,7 @@ const ENV_SCHEMA = z.object({
   AUTH_GITHUB_SECRET: z.string().min(1),
   AUTH_GOOGLE_ID: z.string().min(1),
   AUTH_GOOGLE_SECRET: z.string().min(1),
-  SERVER_BASE_URL: z.string().url().min(1),
+  NEXT_PUBLIC_SERVER_BASE_URL: z.string().url().min(1),
   NEXT_PUBLIC_DEFAULT_IMG: z.string().url().min(1),
 });
 
