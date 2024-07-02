@@ -45,7 +45,7 @@ const defaultValue = [
 
 export default function CreatePage() {
   const router = useRouter();
-  const session = useSession();
+  const { data: session, status } = useSession();
   const [initialValue, setInitialValue] = React.useState(defaultValue);
   const [title, setTitle] = React.useState("");
 
@@ -71,6 +71,10 @@ export default function CreatePage() {
     }
   }, [form]);
 
+  if (!session || !session.user) {
+    return router.replace("/api/auth/signin");
+  }
+
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
       await createPost({
@@ -78,7 +82,7 @@ export default function CreatePage() {
         title: values.title,
         content: values.content,
         description: serialize(JSON.parse(values.content)),
-        email: session?.user?.email as string,
+        email: session.user?.email as string,
       });
       toast.success("게시물이 성공적으로 작성되었습니다.");
       router.push("/");
