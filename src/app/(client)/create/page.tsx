@@ -11,7 +11,7 @@ import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
 
-import instance from "@/apis/instance";
+import { createPost } from "@/apis";
 import { Editor } from "@/components/plate-ui/editor";
 import { FixedToolbar } from "@/components/plate-ui/fixed-toolbar";
 import { FixedToolbarButtons } from "@/components/plate-ui/fixed-toolbar-buttons";
@@ -57,6 +57,7 @@ export default function CreatePage() {
       content: JSON.stringify(defaultValue),
     },
   });
+
   React.useEffect(() => {
     const savedContent = localStorage.getItem("content");
     if (savedContent) {
@@ -72,12 +73,12 @@ export default function CreatePage() {
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
-      await instance.post("/post", {
+      await createPost({
         image: process.env.DEFAULT_IMG,
         title: values.title,
         content: values.content,
         description: serialize(JSON.parse(values.content)),
-        email: session.data?.user?.email,
+        email: session?.user?.email as string,
       });
       toast.success("게시물이 성공적으로 작성되었습니다.");
       router.push("/");

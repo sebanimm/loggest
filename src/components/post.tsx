@@ -1,7 +1,7 @@
 import { AvatarFallback, AvatarImage } from "@radix-ui/react-avatar";
 import Image from "next/image";
 
-import instance from "@/apis/instance";
+import { getUser } from "@/apis";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { Avatar } from "@/components/ui/avatar";
 import {
@@ -29,7 +29,7 @@ export default async function Post({
   description,
   authorId,
 }: PostProps) {
-  const user = await instance.get(`/user/${authorId}`);
+  const user = await getUser(authorId);
 
   return (
     <Card key={id}>
@@ -51,10 +51,10 @@ export default async function Post({
         <CardDescription className="flex justify-between">
           <span className="flex gap-2">
             <Avatar className="h-5 w-5">
-              <AvatarImage width={20} height={20} src={user.data.image} />
+              <AvatarImage width={20} height={20} src={user.image} />
               <AvatarFallback>프로필</AvatarFallback>
             </Avatar>
-            {user.data.name}
+            {user.name}
           </span>
           <span>
             {YYYYMMDD(createdAt)} • {minRead(description)}
