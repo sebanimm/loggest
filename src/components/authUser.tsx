@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 import { singInAction, singOutAction } from "@/actions";
 import avatarPlaceholder from "@/assets/user.svg";
 import { auth } from "@/auth";
@@ -35,7 +37,9 @@ export default async function AuthUser() {
         </Avatar>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
-        <DropdownMenuItem>내 블로그</DropdownMenuItem>
+        <DropdownMenuItem>
+          <Link href={session.user.id as string}>내 블로그</Link>
+        </DropdownMenuItem>
         <form className="w-full" action={singOutAction}>
           <DropdownMenuItem asChild>
             <button type="submit" className="w-full text-start">
