@@ -1,4 +1,4 @@
-import instance from "@/apis/instance";
+import { httpRequest } from "@/apis/httpRequest";
 import type {
   APIResponse,
   CreatePostData,
@@ -9,59 +9,67 @@ import type {
 } from "@/types/schema";
 
 export async function getAllUserIds() {
-  const response = await instance.get<User["id"][]>("/user");
-  return response.data;
+  return await httpRequest<User["id"][]>({ method: "GET", url: "/user" });
 }
 
 export async function getUser(userId: string) {
-  const response = await instance.get<User>(`/user/${userId}`);
-  return response.data;
+  return await httpRequest<User>({ method: "GET", url: `/user/${userId}` });
 }
 
 export async function getUserPosts(userId: string) {
-  const response = await instance.get<Post[]>(`/user/${userId}/posts`);
-  return response.data;
+  return await httpRequest<Post[]>({
+    method: "GET",
+    url: `/user/${userId}/posts`,
+  });
 }
 
 export async function getAllPosts() {
-  const response = await instance.get<Post[]>("/post");
-  return response.data;
+  return await httpRequest<Post[]>({ method: "GET", url: "/post" });
 }
 
 export async function getPost(postId: string | number) {
-  const response = await instance.get<Post>(`/post/${postId}`);
-  return response.data;
+  return await httpRequest<Post>({ method: "GET", url: `/post/${postId}` });
 }
 
 export async function createPost(data: CreatePostData) {
-  const response = await instance.post<APIResponse>("/post", { data });
-  return response.data;
+  return await httpRequest<APIResponse>({ method: "POST", url: "/post", data });
 }
 
 export async function updatePost(
   postId: string | number,
   data: UpdatePostData,
 ) {
-  const response = await instance.put<Post>(`/post/${postId}`, { data });
-  return response.data;
+  return await httpRequest<Post>({
+    method: "PUT",
+    url: `/post/${postId}`,
+    data,
+  });
 }
 
 export async function deletePost(postId: string | number) {
-  const response = await instance.delete<APIResponse>(`/post/${postId}`);
-  return response.data;
+  return await httpRequest<APIResponse>({
+    method: "DELETE",
+    url: `/post/${postId}`,
+  });
 }
 
 export async function getStars(postId: string | number) {
-  const response = await instance.get<Star[]>(`/post/${postId}/stars`);
-  return response.data;
+  return await httpRequest<Star[]>({
+    method: "GET",
+    url: `/post/${postId}/stars`,
+  });
 }
 
 export async function createStar(postId: string | number) {
-  const response = await instance.post<APIResponse>(`/post/${postId}/star`);
-  return response.data;
+  return await httpRequest<APIResponse>({
+    method: "POST",
+    url: `/post/${postId}/star`,
+  });
 }
 
 export async function deleteStar(postId: string | number) {
-  const response = await instance.delete<APIResponse>(`/post/${postId}/star`);
-  return response.data;
+  return await httpRequest<APIResponse>({
+    method: "DELETE",
+    url: `/post/${postId}/star`,
+  });
 }
