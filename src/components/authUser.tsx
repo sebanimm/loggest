@@ -1,5 +1,6 @@
+import { singInAction, singOutAction } from "@/actions";
 import avatarPlaceholder from "@/assets/user.svg";
-import { auth, signIn, signOut } from "@/auth";
+import { auth } from "@/auth";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import {
@@ -14,12 +15,7 @@ export default async function AuthUser() {
 
   if (!session?.user) {
     return (
-      <form
-        action={async () => {
-          "use server";
-          await signIn();
-        }}
-      >
+      <form action={singInAction}>
         <Button type="submit" variant="ghost">
           로그인
         </Button>
@@ -40,13 +36,7 @@ export default async function AuthUser() {
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
         <DropdownMenuItem>내 블로그</DropdownMenuItem>
-        <form
-          className="w-full"
-          action={async () => {
-            "use server";
-            await signOut();
-          }}
-        >
+        <form className="w-full" action={singOutAction}>
           <DropdownMenuItem asChild>
             <button type="submit" className="w-full text-start">
               로그아웃
