@@ -18,7 +18,7 @@ export default async function GeneratePostButton() {
         <Tooltip>
           <TooltipTrigger asChild>
             <Button variant="ghost" size="icon" className="w-10" asChild>
-              <Link href="/create">
+              <Link href="/write">
                 <Plus />
               </Link>
             </Button>

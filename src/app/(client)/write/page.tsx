@@ -45,7 +45,7 @@ const defaultValue = [
 
 export default function CreatePage() {
   const router = useRouter();
-  const { data: session, status } = useSession();
+  const { data: session } = useSession();
   const [initialValue, setInitialValue] = React.useState(defaultValue);
   const [title, setTitle] = React.useState("");
 
