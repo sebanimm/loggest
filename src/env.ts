@@ -17,6 +17,8 @@ const ENV_SCHEMA = z.object({
   NEXT_PUBLIC_SERVER_BASE_URL: z.string().url().min(1),
   NEXT_PUBLIC_DEFAULT_IMG: z.string().url().min(1),
   NEXT_PUBLIC_OPENAI_API_KEY: z.string().min(1),
+  NEXT_PUBLIC_ASSISTANT_ID: z.string().min(1),
+  NEXT_PUBLIC_THREAD_ID: z.string().min(1),
 });
 
 ENV_SCHEMA.parse(process.env);
