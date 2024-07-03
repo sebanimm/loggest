@@ -76,6 +76,7 @@
     "next": "14.2.4",
     "next-auth": "5.0.0-beta.19",
     "next-themes": "^0.3.0",
+    "openai": "^4.52.3",
     "prismjs": "^1.29.0",
     "react": "^18",
     "react-dnd": "^16.0.1",
