@@ -15,6 +15,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { confetti } from "@/lib/confetti";
 
 const FormSchema = z.object({
   choices: z.enum(["1", "2", "3", "4"], {
@@ -42,6 +43,7 @@ export default function AIQuestionForm({
       toast.error("오답입니다!");
     } else {
       toast.success("정답입니다!");
+      confetti.addConfetti({ confettiNumber: 200 });
     }
   }
 
