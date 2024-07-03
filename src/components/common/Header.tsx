@@ -4,7 +4,6 @@ import Link from "next/link";
 import Logo from "@/assets/logo.svg";
 import AuthUser from "@/components/authUser";
 import GeneratePostButton from "@/components/generatePostButton";
-import Search from "@/components/search";
 import ThemeToggle from "@/components/themeToggle";
 
 export default function Header() {
@@ -15,7 +14,6 @@ export default function Header() {
           <Image src={Logo} alt="loggest" className="hidden sm:block" />
         </Link>
         <div className="flex flex-1 items-center justify-end gap-2">
-          <Search />
           <GeneratePostButton />
           <ThemeToggle />
           <AuthUser />
