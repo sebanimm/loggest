@@ -1,11 +1,10 @@
-import type { AutoformatRule } from '@udecode/plate-autoformat';
-
+import type { AutoformatRule } from "@udecode/plate-autoformat";
 import {
   KEY_TODO_STYLE_TYPE,
   ListStyleType,
   toggleIndentList,
-} from '@udecode/plate-indent-list';
-import { setNodes } from '@udecode/slate';
+} from "@udecode/plate-indent-list";
+import { setNodes } from "@udecode/slate";
 
 export const autoformatIndentLists: AutoformatRule[] = [
   {
@@ -14,18 +13,18 @@ export const autoformatIndentLists: AutoformatRule[] = [
         listStyleType: ListStyleType.Disc,
       });
     },
-    match: ['* ', '- '],
-    mode: 'block',
-    type: 'list',
+    match: ["* ", "- "],
+    mode: "block",
+    type: "list",
   },
   {
     format: (editor) =>
       toggleIndentList(editor, {
         listStyleType: ListStyleType.Decimal,
       }),
-    match: ['1. ', '1) '],
-    mode: 'block',
-    type: 'list',
+    match: ["1. ", "1) "],
+    mode: "block",
+    type: "list",
   },
   {
     format: (editor) => {
@@ -37,9 +36,9 @@ export const autoformatIndentLists: AutoformatRule[] = [
         listStyleType: KEY_TODO_STYLE_TYPE,
       });
     },
-    match: ['[] '],
-    mode: 'block',
-    type: 'list',
+    match: ["[] "],
+    mode: "block",
+    type: "list",
   },
   {
     format: (editor) => {
@@ -51,8 +50,8 @@ export const autoformatIndentLists: AutoformatRule[] = [
         listStyleType: KEY_TODO_STYLE_TYPE,
       });
     },
-    match: ['[x] '],
-    mode: 'block',
-    type: 'list',
+    match: ["[x] "],
+    mode: "block",
+    type: "list",
   },
 ];
