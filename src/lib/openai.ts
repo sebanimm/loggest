@@ -41,9 +41,11 @@ export async function receiveMessage() {
     (message) => message.role !== "user",
   );
 
-  const content = assistantMessages.at(-1)?.content[0] as TextContentBlock;
+  const content = assistantMessages.at(-1)?.content[0];
 
-  return content.text.value;
+  if (content && content.type === "text") {
+    return content.text.value;
+  }
 }
 
 export async function createQuestion(title: string, content: string) {
