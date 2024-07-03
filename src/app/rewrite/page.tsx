@@ -37,6 +37,14 @@ const formSchema = z.object({
   content: z.string(),
 });
 
+const initialValue = [
+  {
+    id: "1",
+    type: "h1",
+    children: [{ text: "게시물을 불러오는 중..." }],
+  },
+];
+
 export default function RewritePage() {
   const searchParams = useSearchParams();
   const router = useRouter();
@@ -135,6 +143,7 @@ export default function RewritePage() {
                     <DndProvider backend={HTML5Backend}>
                       <Plate
                         key={field.name}
+                        initialValue={initialValue}
                         value={JSON.parse(data.content)}
                         plugins={plugins}
                         onChange={(value: any) => {
