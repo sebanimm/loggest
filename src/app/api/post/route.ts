@@ -1,3 +1,4 @@
+import { createQuestion } from "@/lib/openai";
 import prisma from "@/lib/prisma";
 
 export async function GET() {
@@ -20,6 +21,10 @@ export async function POST(request: Request) {
 
     if (!author) throw new Error("존재하지 않는 유저");
 
+    const question = await createQuestion(title, content);
+
+    if (!question) throw new Error("어시스턴트 오류");
+
     await prisma.post.create({
       data: {
         image,
@@ -27,6 +32,7 @@ export async function POST(request: Request) {
         content,
         description,
         authorId: author.id,
+        question,
       },
     });
 

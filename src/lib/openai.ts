@@ -45,3 +45,13 @@ export async function receiveMessage() {
 
   return content.text.value;
 }
+
+export async function createQuestion(title: string, content: string) {
+  await sendMessageToAssistant(title, content);
+
+  const run = await createRun();
+
+  await waitOnRun(run);
+
+  return await receiveMessage();
+}
