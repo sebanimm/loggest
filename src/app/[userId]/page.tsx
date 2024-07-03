@@ -4,6 +4,8 @@ import { getAllUserIds, getUser, getUserPosts } from "@/apis";
 import PostList from "@/components/common/PostList";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { Separator } from "@/components/ui/separator";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 interface UserPageParams {
   params: {
@@ -33,9 +35,17 @@ export default async function UserPage({ params: { userId } }: UserPageParams) {
             {user.name}
           </span>
         </div>
-        <ScrollArea>
-          <PostList posts={userPosts} />
-        </ScrollArea>
+        <Separator />
+        <Tabs className="flex flex-col items-center" defaultValue="posts">
+          <TabsList className="mb-8 w-fit">
+            <TabsTrigger value="posts">게시물</TabsTrigger>
+          </TabsList>
+          <TabsContent value="posts" asChild>
+            <ScrollArea className="min-h-[50vh] w-full whitespace-nowrap">
+              <PostList posts={userPosts} />
+            </ScrollArea>
+          </TabsContent>
+        </Tabs>
       </main>
     </div>
   );

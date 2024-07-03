@@ -8,9 +8,11 @@ interface PostListProps {
 export default async function PostList({ posts }: PostListProps) {
   if (!posts.length) {
     return (
-      <div className="flex h-[calc(100vh-56px)] w-full flex-col">
-        <span className="text-4xl font-bold">아직 아무것도 없네요!</span>
-      </div>
+      <main className="flex flex-grow flex-col justify-center">
+        <span className="text-center text-4xl font-bold">
+          아직 아무것도 없네요!
+        </span>
+      </main>
     );
   }
 

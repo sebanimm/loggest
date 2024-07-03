@@ -37,8 +37,10 @@ export default async function AuthUser() {
         </Avatar>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
-        <DropdownMenuItem>
-          <Link href={session.user.id as string}>내 블로그</Link>
+        <DropdownMenuItem asChild>
+          <Link href={session.user.id as string} className="w-full">
+            내 블로그
+          </Link>
         </DropdownMenuItem>
         <form className="w-full" action={singOutAction}>
           <DropdownMenuItem asChild>
