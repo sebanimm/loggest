@@ -17,7 +17,7 @@ export default async function PostList({ posts }: PostListProps) {
   }
 
   return (
-    <main className="grid grid-cols-3 gap-4 lg:grid-cols-4">
+    <main className="grid grid-cols-3 grid-rows-[max-content] gap-4 lg:grid-cols-4">
       {posts.map((item: any) => (
         <Post key={item.id} {...item} />
       ))}
