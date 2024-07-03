@@ -6,7 +6,7 @@ interface PostListProps {
 }
 
 export default async function PostList({ posts }: PostListProps) {
-  if (!posts.length) {
+  if (!posts.length || !posts) {
     return (
       <main className="flex flex-grow flex-col justify-center">
         <span className="text-center text-4xl font-bold">
