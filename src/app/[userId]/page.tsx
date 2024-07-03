@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
 
 import { getAllUserIds, getUser, getUserPosts } from "@/apis";
-import Post from "@/components/post";
+import PostList from "@/components/common/PostList";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { ScrollArea } from "@/components/ui/scroll-area";
 
@@ -34,11 +34,7 @@ export default async function UserPage({ params: { userId } }: UserPageParams) {
           </span>
         </div>
         <ScrollArea>
-          <div className="grid grid-cols-3 gap-4 lg:grid-cols-4">
-            {userPosts.map((item: any) => (
-              <Post key={item.id} {...item} />
-            ))}
-          </div>
+          <PostList posts={userPosts} />
         </ScrollArea>
       </main>
     </div>

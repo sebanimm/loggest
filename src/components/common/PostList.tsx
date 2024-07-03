@@ -1,9 +1,11 @@
-import { getAllPosts } from "@/apis";
 import Post from "@/components/post";
+import type { Post as PostData } from "@/types/schema";
 
-export default async function PostList() {
-  const posts = await getAllPosts();
+interface PostListProps {
+  posts: PostData[];
+}
 
+export default async function PostList({ posts }: PostListProps) {
   if (!posts.length) {
     return (
       <div className="flex h-[calc(100vh-56px)] w-full flex-col">
