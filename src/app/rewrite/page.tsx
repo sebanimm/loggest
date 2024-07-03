@@ -101,7 +101,7 @@ export default function RewritePage() {
   };
 
   return (
-    <main className="container">
+    <main className="container w-2/3">
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
