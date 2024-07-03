@@ -6,6 +6,8 @@ import { PlateEditor } from "@/components/common/PlateEditor";
 import MoreMenu from "@/components/moreMenu";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Separator } from "@/components/ui/separator";
 import { YYYYMMDD } from "@/lib/dayjs";
 import { minRead } from "@/lib/minRead";
 
@@ -24,6 +26,16 @@ export default async function PostPage({
   if (!post) {
     notFound();
   }
+
+  const refinedQuestion = post.question.split("\n").filter((q) => q !== "");
+
+  const question = {
+    introduction: refinedQuestion[0],
+    choices: [...refinedQuestion.slice(1, 5)],
+    answer: refinedQuestion.at(-1)?.at(-1),
+  };
+
+  console.log(question);
 
   const author = await getUser(userId);
 
@@ -58,7 +70,27 @@ export default async function PostPage({
           </div>
           <div>{userId === author.id && <MoreMenu />}</div>
         </div>
-        <PlateEditor value={JSON.parse(post.content)} />
+        <main className="mb-24">
+          <PlateEditor value={JSON.parse(post.content)} />
+        </main>
+        <Separator className="mb-16" />
+        <div className="m-auto w-8/12">
+          <h1 className="mb-8 text-4xl font-semibold">AI 생성 문제</h1>
+          <h2 className="mb-4 text-2xl">Q. {question.introduction}</h2>
+          <div>
+            {question.choices.map((choice) => (
+              <div key={choice[0]} className="flex items-center space-x-2">
+                <Checkbox id={choice[0]} />
+                <label
+                  htmlFor={choice[0]}
+                  className="text-lg font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                >
+                  Accept terms and conditions
+                </label>
+              </div>
+            ))}
+          </div>
+        </div>
       </article>
     </main>
   );
