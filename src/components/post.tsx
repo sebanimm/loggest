@@ -45,7 +45,7 @@ export default async function Post({
         </AspectRatio>
         <CardHeader>
           <CardTitle className="line-clamp-1 text-ellipsis">{title}</CardTitle>
-          <CardDescription className="line-clamp-3 text-ellipsis">
+          <CardDescription className="line-clamp-3 min-h-10 text-ellipsis">
             {description}
           </CardDescription>
         </CardHeader>
