@@ -94,6 +94,7 @@ export default function RewritePage() {
       });
       toast.success("게시물이 성공적으로 수정되었습니다.");
       router.back();
+      router.refresh();
     } catch (err) {
       toast.error("게시물 수정에 실패하였습니다.");
     }

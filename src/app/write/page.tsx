@@ -86,7 +86,8 @@ export default function WritePage() {
         email: session?.user?.email as string,
       });
       toast.success("게시물이 성공적으로 작성되었습니다.");
-      router.push("/");
+      router.back();
+      router.refresh();
       localStorage.removeItem("content");
       localStorage.removeItem("title");
     } catch (err) {
