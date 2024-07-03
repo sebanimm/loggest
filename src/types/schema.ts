@@ -21,6 +21,7 @@ export interface Post {
   content: string;
   description: string;
   authorId: string;
+  question: string;
 }
 
 export interface Star {

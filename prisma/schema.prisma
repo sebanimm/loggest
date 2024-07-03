@@ -76,6 +76,7 @@ model Post {
   content     String
   description String
   authorId    String
+  question    String
   author      User           @relation(fields: [authorId], references: [id], onDelete: Cascade)
   readByUsers UserReadPost[]
   stars       Star[]
