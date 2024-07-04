@@ -5,6 +5,7 @@ import { getPost, getUser } from "@/apis";
 import AIQuestionForm from "@/components/aiQuestionForm";
 import { PlateEditor } from "@/components/common/PlateEditor";
 import MoreMenu from "@/components/moreMenu";
+import StarButton from "@/components/starButton";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
@@ -66,7 +67,10 @@ export default async function PostPage({
               </span>
             </div>
           </div>
-          <div>{userId === author.id && <MoreMenu />}</div>
+          <div>
+            <StarButton userId={userId} postId={postId} />
+            {userId === author.id && <MoreMenu />}
+          </div>
         </div>
         <main className="mb-24">
           <PlateEditor value={JSON.parse(post.content)} />
