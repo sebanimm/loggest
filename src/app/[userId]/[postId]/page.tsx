@@ -38,7 +38,7 @@ export default async function PostPage({
   const author = await getUser(userId);
 
   return (
-    <main className="container w-2/3">
+    <main className="container lg:w-2/3">
       <article className="flex flex-col py-8">
         <h1 className="mb-10 text-5xl font-bold leading-tight tracking-tighter">
           {post.title}
