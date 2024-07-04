@@ -23,6 +23,13 @@ export async function getUserPosts(userId: string) {
   });
 }
 
+export async function getUserStarredPosts(userId: string) {
+  return await httpRequest<Post[]>({
+    method: "GET",
+    url: `/user/${userId}/posts/starred`,
+  });
+}
+
 export async function getAllPosts() {
   return await httpRequest<Post[]>({ method: "GET", url: "/post" });
 }
