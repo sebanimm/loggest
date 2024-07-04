@@ -60,16 +60,18 @@ export async function getStars(postId: string | number) {
   });
 }
 
-export async function createStar(postId: string | number) {
+export async function createStar(userId: string, postId: string | number) {
   return await httpRequest<APIResponse>({
     method: "POST",
     url: `/post/${postId}/star`,
+    data: { userId },
   });
 }
 
-export async function deleteStar(postId: string | number) {
+export async function deleteStar(userId: string, postId: string | number) {
   return await httpRequest<APIResponse>({
     method: "DELETE",
     url: `/post/${postId}/star`,
+    data: { userId },
   });
 }
