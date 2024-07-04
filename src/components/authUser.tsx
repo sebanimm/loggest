@@ -15,7 +15,7 @@ import {
 export default async function AuthUser() {
   const session = await auth();
 
-  if (!session?.user) {
+  if (!session || !session.user) {
     return (
       <form action={singInAction}>
         <Button type="submit" variant="ghost">
